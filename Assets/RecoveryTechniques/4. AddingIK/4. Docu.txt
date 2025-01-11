@@ -1,0 +1,17 @@
+Unity's build in IK system was insanely easy to set up using their documentation. And as it's built in it means we aren't
+dependent on another third party asset. All I had to do was check a simple checkmark and write a super simple script
+"IKController".
+
+Issue to fix: having the animated version have physics as well
+
+The feet were moving with the animation and not planted if I made them just follow the hips or legs. So I had to adjust the
+IKController to be split up into multiple different states depending on the animation.
+
+The hands are gonna be much harder to match with the ground though, as they don't stay on the ground like the feet.
+
+I've got a weird issue where the character keeps moving from place to place when changing animations.
+
+
+So I tried using IK for the hands to match them with the ground, but it's got its downsides. It does match with the ground well,
+but because of the way it works it will try to stay on the ground for too long, making them kind of act unnaturally and
+try pointing down to the ground for too long

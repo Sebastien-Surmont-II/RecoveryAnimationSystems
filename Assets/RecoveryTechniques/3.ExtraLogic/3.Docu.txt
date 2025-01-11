@@ -1,0 +1,2 @@
+For this part I'm planning on making it so that the rotation of the player gets taken into account. This is where the terms
+prone & supine come into play. Prone means lying face down & supine means laying face up.

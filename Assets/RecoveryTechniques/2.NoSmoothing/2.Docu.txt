@@ -1,0 +1,12 @@
+This part fixes 2 things, the ragdoll will stand up where it landed instead of snapping back to where the logic transform is & it plays a standing up animation before standing up. (first it smoothly rotates the bones to the beginning of the
+animation's bone rotations)
+
+Positives & Negatives:
+++ Doesn't take long to set up & is consistent, can be as fast as you want
+++ Pretty believable when getting up on a flat floor with no height differences
+& no external factors
+-- As soon as you're on a slope or some kind of height difference it will
+look very unrealistic
+-- Doesn't interact with anything while it's getting up
+-- The bones can rotate in unnatural ways when smoothly rotating to the beginning
+of the animation

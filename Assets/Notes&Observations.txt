@@ -1,0 +1,56 @@
+19/11
+First we try and see how balancing works, for this I am visualizing both the literal middle point of the ragdoll
+as well as the weighted middle point (aka multiplying by mass/total mass instead of rigidbody amount)
+
+Now it may seem obvious, but we can't use the literal middle point, as it doesn't accurately predict that the ragdoll will
+fall over like the weighted one does.
+
+- We need to know when you're unbalanced to be able to stand up while keeping balance.
+
+The further the center of mass is from the base the harder it is to push yourself up
+
+What is the base? Is it the feet, the hips or maybe even the literal middle point?
+I'm taking an educated guess in saying it's not the literal middle part. And since you can fall over forwards
+even if the hips are tiled behind you it's not that either. 
+So I'm now guessing it's the legs and feet when you're standing up. The balancing muscles.
+So when you're on your hands and feet it's both your upper body and your lower body that are the base.
+From observing the super simple active ragdoll I've made your center of mass seems to have to be in 
+the middle of this "base". So if you're in a pushup position your base are your arms and legs, so if one of those
+collapses you will "lose stability" aka fall. To push yourself up from the position you have to make sure the center of
+mass stays in the middle of this base.
+
+Counter argument, if you were to have a stick with a big heavy ball at the top and a piston with insane strength
+at the base. So the center of gravity is over that piston and 
+so not in the middle of the base, but it could still push you up.
+So in hypothesis this strong piston could just be your ankles. Although if it's your ankles your feet won't have the grip.
+
+But it does seem to mean you can't assume that you're only (un)balanced if the center of gravity 
+is in the middle of the base. 
+- So using this new scenario let's come up with a more precise definition of unbalanced.
+
+Let's make a sketch of this scenario and draw all the forces, that seems like the next step. 
+
+20/11
+So what I've thought of is that it really doesn't matter, as this scenario would never happen. Since it's only possible
+with an external force applier, which isn't part of this research.
+
+
+27/12
+
+I found some sources between the last note entry and now, they're sources explaining the biomechanics that I've been struggling with figuring out myself.
+I also found a source on reddit saying why euphoria the physics animation engine used by rockstar games for GTA isn't used more, it's very frigging expensive.
+
+Also a word to keep in mind DYNAMIC MOTION SYNTHESIS
+
+28/12
+
+I bought puppet master to not have to make my own ghost skeleton system.
+
+I'm gonna be testing a few solutions to getting up and testing them on a bunch of things from how realistic they are,
+how expandable, how resource expensive, how difficult to set up, etc...
+
+The solutions I will be testing are the following: 1. 
+
+
+So far working with puppet master has been a real pain, the out of the box solution has just been scooting on the floor
+or getting up in a very unrealistic manner. Looks like I'll have to customize it somewhat.

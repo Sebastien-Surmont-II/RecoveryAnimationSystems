@@ -1,0 +1,60 @@
+So far although it's jittering atm it's been the best solution. With a combination of everything that went before it, 
+this has been better than IK. Maybe I can work IK in though.
+
+I found a solution to the jittering, because of the fact that the muscles don't actually snap to the animation instantly
+I didn't need the bone transition rotation and positioning time. So I could just set that to 0 and let the ghost rig
+do all that work.
+
+For some reason adding the existing IK logic to this system causes it to slowly move away.
+
+This solution gets rid of the problem I had until now, even with the IK solution. It stops limbs from going through objects.
+
+
+It's still very rough on very large stairs
+
+Still trying to fix the damn jittering
+I fixed the jittering, I just changed the muscle strength from 100 & 0 dampening to 50 & 5
+
+
+I fixed an issue where it would think it's on its back while its on its belly because the hips aren't rotated enough with it,
+so instead of using hip rotation I will now use the hips position relative to the Support Polygon, the support polygon btw
+is basically the area over which the center of mass, which we can assume to be the hips in this case must be to be in balance
+this was the code, I ended up going back for the simpler code as this code wasn't worth the complexity since it had its
+own problems with consistency:
+// Get the positions of the hands and feet
+        Transform leftHand = animator.GetBoneTransform(HumanBodyBones.LeftHand);
+        Transform rightHand = animator.GetBoneTransform(HumanBodyBones.RightHand);
+        Transform leftFoot = animator.GetBoneTransform(HumanBodyBones.LeftFoot);
+        Transform rightFoot = animator.GetBoneTransform(HumanBodyBones.RightFoot);
+
+        Vector3 leftHandPos = leftHand.position;
+        Vector3 rightHandPos = rightHand.position;
+        Vector3 leftFootPos = leftFoot.position;
+        Vector3 rightFootPos = rightFoot.position;
+
+        // Compute the center of the support polygon
+        Vector3 supportCenter = (leftHandPos + rightHandPos + leftFootPos + rightFootPos) / 4;
+
+        // Compute two edges of the polygon
+        Vector3 edge1 = leftHandPos - leftFootPos;
+        Vector3 edge2 = rightHandPos - leftFootPos;
+
+        // Calculate the normal vector of the support polygon
+        Vector3 polygonNormal = Vector3.Cross(edge1, edge2).normalized;
+
+        // Compute the vector from the support center to the hips
+        Vector3 hipsToCenter = _hipsBone.position - supportCenter;
+
+        // Project the hips position onto the support polygon's plane
+        float projection = Vector3.Dot(hipsToCenter, polygonNormal);
+
+        // If the projection is positive, the hips are above the polygon plane (supine)
+        // If negative, they are below the plane (prone)
+        return projection <= 0;
+
+
+
+I experimented with having the hands be physics based as well, but I ended up just doing the same thing as with the feet
+and instead controlled them using an IK
+
+++ You can make it look as though the player is weakened without adding new animations
